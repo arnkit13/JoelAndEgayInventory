@@ -1,10 +1,10 @@
-const rawBase = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://chinoinventorysystem-production.up.railway.app';
+const rawBase = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
 const API_BASE = rawBase
   ? (rawBase.endsWith('/api') ? rawBase : `${rawBase.replace(/\/+$/, '')}/api`)
   : '/api';
 
 function getAuthHeaders() {
-  const token = localStorage.getItem('chino_admin_token');
+  const token = localStorage.getItem('joel_egay_admin_token') || localStorage.getItem('chino_admin_token');
   const headers = { 'Content-Type': 'application/json' };
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
@@ -84,7 +84,7 @@ export const api = {
   async importExcelFile(file) {
     const formData = new FormData();
     formData.append('file', file);
-    const token = localStorage.getItem('chino_admin_token');
+    const token = localStorage.getItem('joel_egay_admin_token') || localStorage.getItem('chino_admin_token');
     const headers = {};
     if (token) headers['Authorization'] = `Bearer ${token}`;
 
@@ -220,14 +220,14 @@ export const api = {
       throw new Error(data.message || 'Login failed');
     }
     if (data.token) {
-      localStorage.setItem('chino_admin_token', data.token);
-      localStorage.setItem('chino_admin_user', JSON.stringify(data));
+      localStorage.setItem('joel_egay_admin_token', data.token);
+      localStorage.setItem('joel_egay_admin_user', JSON.stringify(data));
     }
     return data;
   },
 
   async logout() {
-    const token = localStorage.getItem('chino_admin_token');
+    const token = localStorage.getItem('joel_egay_admin_token') || localStorage.getItem('chino_admin_token');
     try {
       await fetch(`${API_BASE}/auth/logout`, {
         method: 'POST',
@@ -236,12 +236,14 @@ export const api = {
     } catch (e) {
       // ignore network errors on logout
     }
+    localStorage.removeItem('joel_egay_admin_token');
+    localStorage.removeItem('joel_egay_admin_user');
     localStorage.removeItem('chino_admin_token');
     localStorage.removeItem('chino_admin_user');
   },
 
   getCurrentUser() {
-    const userStr = localStorage.getItem('chino_admin_user');
+    const userStr = localStorage.getItem('joel_egay_admin_user') || localStorage.getItem('chino_admin_user');
     if (!userStr) return null;
     try {
       return JSON.parse(userStr);

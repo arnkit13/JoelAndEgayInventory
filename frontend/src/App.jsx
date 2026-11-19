@@ -9,8 +9,8 @@ import { CheckCircle2, AlertCircle } from 'lucide-react';
 export default function App() {
   const [adminUser, setAdminUser] = useState(() => {
     try {
-      const savedUser = localStorage.getItem('chino_admin_user');
-      const token = localStorage.getItem('chino_admin_token');
+      const savedUser = localStorage.getItem('joel_egay_admin_user') || localStorage.getItem('chino_admin_user');
+      const token = localStorage.getItem('joel_egay_admin_token') || localStorage.getItem('chino_admin_token');
       if (savedUser && token) {
         return JSON.parse(savedUser);
       }
@@ -22,8 +22,8 @@ export default function App() {
 
   const [activeRole, setActiveRole] = useState(() => {
     try {
-      const savedRole = localStorage.getItem('chino_active_role');
-      const token = localStorage.getItem('chino_admin_token');
+      const savedRole = localStorage.getItem('joel_egay_active_role') || localStorage.getItem('chino_active_role');
+      const token = localStorage.getItem('joel_egay_admin_token') || localStorage.getItem('chino_admin_token');
       if (savedRole === 'admin' && token) {
         return 'admin';
       }
@@ -104,14 +104,14 @@ export default function App() {
     if (role === 'admin') {
       if (adminUser) {
         setActiveRole('admin');
-        localStorage.setItem('chino_active_role', 'admin');
+        localStorage.setItem('joel_egay_active_role', 'admin');
         api.getAllProducts().then(setProducts).catch(console.error);
       } else {
         setIsLoginModalOpen(true);
       }
     } else {
       setActiveRole('tindera');
-      localStorage.setItem('chino_active_role', 'tindera');
+      localStorage.setItem('joel_egay_active_role', 'tindera');
       if (products.length === 0) {
         loadInitialData();
       }
@@ -123,7 +123,7 @@ export default function App() {
     const data = await api.login(username, password);
     setAdminUser(data);
     setActiveRole('admin');
-    localStorage.setItem('chino_active_role', 'admin');
+    localStorage.setItem('joel_egay_active_role', 'admin');
     showToast(`Welcome, ${data.fullName || data.username}`);
     loadInitialData();
   };
@@ -133,7 +133,7 @@ export default function App() {
     await api.logout();
     setAdminUser(null);
     setActiveRole('tindera');
-    localStorage.setItem('chino_active_role', 'tindera');
+    localStorage.setItem('joel_egay_active_role', 'tindera');
     showToast('Logged out of Admin view');
     loadInitialData();
   };

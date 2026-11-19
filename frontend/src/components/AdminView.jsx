@@ -23,13 +23,13 @@ export default function AdminView({
   onSwitchToTindera
 }) {
   const [activeTab, setActiveTab] = useState(() => {
-    const saved = localStorage.getItem('chino_admin_active_tab');
+    const saved = localStorage.getItem('joel_egay_admin_active_tab') || localStorage.getItem('chino_admin_active_tab');
     return saved === 'categories' ? 'inventory' : (saved || 'inventory');
   });
 
   const handleSelectTab = (tab) => {
     setActiveTab(tab);
-    localStorage.setItem('chino_admin_active_tab', tab);
+    localStorage.setItem('joel_egay_admin_active_tab', tab);
   };
 
   const [searchTerm, setSearchTerm] = useState('');
