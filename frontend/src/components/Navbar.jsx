@@ -14,7 +14,7 @@ export default function Navbar({
           <Package size={22} />
         </div>
         <div>
-          <h1 className="brand-title">CHINO INVENTORY</h1>
+          <h1 className="brand-title">Joel and Egay Inventory</h1>
           <div className="brand-subtitle">
             Inventory Management &amp; Price Checker
           </div>

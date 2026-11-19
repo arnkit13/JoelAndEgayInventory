@@ -282,7 +282,7 @@ export default function ExcelImportModal({ isOpen, onClose, onImportSuccess }) {
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Data Source');
-    XLSX.writeFile(workbook, 'chino_inventory_template.xlsx');
+    XLSX.writeFile(workbook, 'joel_and_egay_inventory_template.xlsx');
   };
 
   const handleConfirmImport = async () => {
