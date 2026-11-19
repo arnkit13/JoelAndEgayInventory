@@ -1,0 +1,14 @@
+[variables]
+NIXPACKS_JDK_VERSION = "21"
+
+[phases.setup]
+nixpkgsArchive = "51ad838b03a05b1de6f9f2a0fffecee64a9788ee"
+nixPkgs = ["jdk21", "maven"]
+
+[phases.build]
+cmds = ["cd backend && mvn clean package -DskipTests"]
+
+[start]
+cmd = "sh -c 'JAR_FILE=$(find . -name \"*.jar\" ! -name \"*.original\" | head -n 1) && echo \"=== Running JAR: $JAR_FILE on port ${PORT:-8080} ===\" && java -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Dserver.port=${PORT:-8080} -jar \"$JAR_FILE\"'"
+
+
