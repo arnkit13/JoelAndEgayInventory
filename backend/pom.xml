@@ -12,7 +12,7 @@
 	<artifactId>inventory-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>inventory-backend</name>
-	<description>Chino Inventory Management System Backend</description>
+	<description>Joel and Egay Inventory Backend</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
